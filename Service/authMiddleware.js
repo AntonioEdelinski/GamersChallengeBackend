@@ -5,9 +5,9 @@ export const authenticateToken = (req, res, next) => {
 
   if (!token) return res.status(401).json({ error: 'Access denied' });
 
-  jwt.verify(token.split(' ')[1], 'your_jwt_secret', (err, user) => {
-    if (err) return res.status(403).json({ error: 'Invalid token' });
-    req.user = user;
-    next();
-  });
+ jwt.verify(token.split(' ')[1], process.env.JWT_SECRET, (err, user) => {
+  if (err) return res.status(403).json({ error: 'Invalid token' });
+  req.user = user;
+  next();
+});
 };
